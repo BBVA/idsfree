@@ -1,0 +1,5 @@
+click
+colorlog
+booby-ng
+asyncssh
+python-libnmap
