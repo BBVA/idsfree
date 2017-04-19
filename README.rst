@@ -44,29 +44,18 @@ What's idsFree
 This project try to launch hacking test without raise alerts into IDS
 mechanisms.
 
-The main problem when we try to do hacking for our own websites, and when we
- haven't infrastructure in other place but in cloud system (AWS, Google
- Compute engine, Digital Ocean, etc...) is that these providers doesn't allow
-  to run hacking tools (even the applications are we own!).
+The main problem when we try to do hacking for our own websites, and when we haven't infrastructure in other place but in cloud system (AWS, Google Compute engine, Digital Ocean, etc...) is that these providers doesn't allow to run hacking tools (even the applications are we own!).
 
 To avoid this issue, we have created **idsFree**.
 
 How it's works?
 ===============
 
-IdsFree get your application image (as a Docker image) and creates a Docker
-container using it. Then it connect the container to another docker container
-with hacking tools using a cyphered SDN and then: creating a **private**,
-**isolated** and **cyphered network** for your tests, in a **specified machine
-with
-SSH access**.
+IdsFree get your application image (as a Docker image) and creates a Docker container using it. Then it connect the container to another docker container with hacking tools using a cyphered SDN and then: creating a **private**, **isolated** and **cyphered network** for your tests, in a **specified machine with SSH access**.
 
-Then idsFree launch your hacking tests over your application, get the
-results and export it in a readable format (currently in JSON and XML JUnit
-format).
+Then idsFree launch your hacking tests over your application, get the results and export it in a readable format (currently in JSON and XML JUnit format).
 
-When test was ended, idsFree remove the containers, the private networks and
- clean the environment.
+When test was ended, idsFree remove the containers, the private networks and clean the environment.
 
 Documentation
 =============
