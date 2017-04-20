@@ -38,8 +38,8 @@ idsFree
 |Python versions | 3.5 or above                               |
 +----------------+--------------------------------------------+
 
-What's idsFree
-==============
+What's idsFree?
+===============
 
 This project try to launch hacking test without raise alerts into IDS
 mechanisms.
@@ -48,8 +48,8 @@ The main problem when we try to do hacking for our own websites, and when we hav
 
 To avoid this issue, we have created **idsFree**.
 
-How it's works?
-===============
+How it works?
+=============
 
 IdsFree get your application image (as a Docker image) and creates a Docker container using it. Then it connect the container to another docker container with hacking tools using a cyphered SDN and then: creating a **private**, **isolated** and **cyphered network** for your tests, in a **specified machine with SSH access**.
 
