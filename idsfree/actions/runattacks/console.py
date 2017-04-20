@@ -10,7 +10,7 @@ log = logging.getLogger('idsfree')
 def launch_idsfree_runattasks_in_console(config: IdsFreeRunAttacksModel):
     """Launch in console mode"""
 
-    log.setLevel(config.verbosity)
+    log.setLevel(get_log_level(config.verbosity))
 
     with run_in_console(config.debug):
         log.console("Starting attacks of remote host...")

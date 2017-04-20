@@ -12,7 +12,6 @@ log = logging.getLogger('idsfree')
 
 @click.command(help="Install required software in remote host")
 @click.pass_context
-@click.argument('remote_host', required=True)
 def prepare(ctx, **kwargs):
     if ctx.obj.get("ask_remote_password") is True:
         ctx.obj["remote_password"] = getpass.getpass("Remote SSH password: ",

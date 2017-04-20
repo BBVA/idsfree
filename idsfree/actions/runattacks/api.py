@@ -98,10 +98,8 @@ async def launch_attacks(config: IdsFreeRunAttacksModel,
             attacker_app = "attacker_app_{}".format(generate_random_name(
                 4, 10))
 
-            # Set ports
-
             # Launch app to attack
-            log.debug("Launching attacked app with name: {}".format(
+            log.warning("Launching attacked app with name: {}".format(
                 attacked_app))
             attacked_app_raw = await connection.run(
                 "docker run --rm -d --network={netname} --name {attacked_app} "
@@ -116,7 +114,7 @@ async def launch_attacks(config: IdsFreeRunAttacksModel,
 
             try:
                 # Launch attacks
-                log.debug("Launching attacked app with name: {}".format(
+                log.warning("Launching attacked app with name: {}".format(
                     attacker_app))
 
                 scan_results = {}
@@ -132,7 +130,7 @@ async def launch_attacks(config: IdsFreeRunAttacksModel,
 
                     command, results_path = params
 
-                    log.debug("Launching tool: '{}'. Command: {}".format(
+                    log.info("Launching tool: '{}'. Command: {}".format(
                         tool_name,
                         command
                     ))
@@ -172,7 +170,7 @@ async def launch_attacks(config: IdsFreeRunAttacksModel,
 
             finally:
                 # Destroy attacked app container
-                log.debug("Destroying attacked app with name: {}".format(
+                log.warning("Destroying attacked app with name: {}".format(
                     attacked_app))
                 await connection.run("docker rm -f {attacked_app_id}".format(
                     attacked_app_id=attacked_app_id
@@ -202,8 +200,15 @@ def run_runattasks_idsfree(config: IdsFreeRunAttacksModel) \
     results = loop.run_until_complete(launch_attacks(config))
 
     # Parse results
+
+    log.error("Generating results as '{}' format, in file: '{}'".format(
+        config.output_results_format,
+        config.output_results_path
+    ))
+
     return parse_results(results,
                          config.attacks_type,
                          config.output_results_format)
+
 
 __all__ = ("run_runattasks_idsfree",)

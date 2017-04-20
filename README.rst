@@ -57,8 +57,66 @@ Then idsFree launch your hacking tests over your application, get the results an
 
 When test was ended, idsFree remove the containers, the private networks and clean the environment.
 
+Quick start
+===========
+
+Install
+-------
+
+.. code-block:: bash
+
+    > python3.5 -m pip install idsfree
+
+Check remote environment
+------------------------
+
+IdsFree allow to check if a remote system has all the necessary conditions
+to run. An examples of usage are:
+
+### Check remote system by passing the password in command line
+
+.. code-block:: bash
+
+    > idsfree -v -H 192.168.111.129  -d -U root -P MY_PASSWORD prepare
+    [ * ] Starting preparation of remote host...
+    [ * ] Checking remote machine for minimum requisites
+    [ * ] Initialization Swarm at IP: 192.168.111.129
+    [ * ] Creating new encrypted network: DgJXoXmeYhASHjmSV
+
+### Check remote system and tell to idsFree ask for the password
+
+.. code-block:: bash
+
+    > idsfree -v -H 192.168.111.129  -d -U root -A prepare
+    [ * ] Starting preparation of remote host...
+    [ * ] Checking remote machine for minimum requisites
+    [ * ] Initialization Swarm at IP: 192.168.111.129
+    [ * ] Creating new encrypted network: DgJXoXmeYhASHjmSV
+
+Launching the attacks
+---------------------
+
+Currently, idsFree can launch two type of attacks: net | web, and try to
+choice the best tools to perform the attacks.
+
+Also, idsFree can report in two formats: **JSON** and **JUnit**.
+
+### Launch attack and report in JUnit
+
+.. code-block:: bash
+
+    > idsfree -v -H 192.168.111.129  -d -U root -P MY_PASSWORD run_attacks  -p  6379 -t net -s redis redis -o results.xml -e junit
+
+### Launch attack, report in JSON and ask for password
+
+.. code-block:: bash
+
+    > idsfree -v -H 192.168.111.129  -d -U root -A run_attacks  -p  6379 -t  net -s redis redis -o results.json -e json
+
 Documentation
 =============
+
+(Still pending!)
 
 Go to documentation site: https://idsfree.readthedocs.io/
 

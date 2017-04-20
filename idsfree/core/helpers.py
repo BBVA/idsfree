@@ -41,7 +41,7 @@ def get_log_level(verbosity: int) -> int:
     if verbosity < logging.DEBUG:
         verbosity = logging.DEBUG
 
-    return (logging.CRITICAL - verbosity) + 10
+    return logging.CRITICAL - verbosity
 
 
 @contextmanager

@@ -14,5 +14,9 @@ class IdsFreeTypeError(TypeError):
     pass
 
 
+class IdsFreeInvalidRequisitesError(TypeError):
+    pass
+
+
 __all__ = ("IdsFreeError", "IdsFreeValueError", "IdsFreeTypeError",
-           "IdsFreeInsecureData")
+           "IdsFreeInsecureData", "IdsFreeInvalidRequisitesError")
