@@ -73,7 +73,7 @@ Check remote environment
 IdsFree allow to check if a remote system has all the necessary conditions
 to run. An examples of usage are:
 
-### Check remote system by passing the password in command line
+**Check remote system by passing the password in command line**
 
 .. code-block:: bash
 
@@ -83,7 +83,7 @@ to run. An examples of usage are:
     [ * ] Initialization Swarm at IP: 192.168.111.129
     [ * ] Creating new encrypted network: DgJXoXmeYhASHjmSV
 
-### Check remote system and tell to idsFree ask for the password
+**Check remote system and tell to idsFree ask for the password**
 
 .. code-block:: bash
 
@@ -101,13 +101,13 @@ choice the best tools to perform the attacks.
 
 Also, idsFree can report in two formats: **JSON** and **JUnit**.
 
-### Launch attack and report in JUnit
+**Launch attack and report in JUnit**
 
 .. code-block:: bash
 
     > idsfree -v -H 192.168.111.129  -d -U root -P MY_PASSWORD run_attacks  -p  6379 -t net -s redis redis -o results.xml -e junit
 
-### Launch attack, report in JSON and ask for password
+**Launch attack, report in JSON and ask for password**
 
 .. code-block:: bash
 
