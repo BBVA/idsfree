@@ -8,8 +8,8 @@ idsFree
     :width: 64px
     :alt: idsFree logo
 
-.. image:: https://travis-ci.org//cr0hn/idsfree.svg?branch=master
-    :target: https://travis-ci.org/cr0hn/idsfree
+.. image:: https://travis-ci.org/bbva/idsfree.svg?branch=master
+    :target: https://travis-ci.org/bbva/idsfree
 
 .. image:: https://img.shields.io/pypi/l/Django.svg
     :target: https://github.com/bbva/idsfree/blob/master/LICENSE
@@ -17,10 +17,10 @@ idsFree
 .. image:: https://img.shields.io/pypi/status/Django.svg
     :target: https://pypi.python.org/pypi/idsfree/1.0.0
 
-.. image:: https://codecov.io/gh//cr0hn/idsfree/branch/master/graph/badge.svg
-    :target: https://codecov.io/gh/cr0hn/idsfree
+.. image:: https://codecov.io/gh/bbva/idsfree/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/bbva/idsfree
 
-.. image:: https://readthedocs.org/projects/cr0hn/badge/?version=latest
+.. image:: https://readthedocs.org/projects/bbva/badge/?version=latest
     :target: http://idsfree.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
 
