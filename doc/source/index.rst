@@ -2,11 +2,11 @@ Welcome to idsFree's documentation!
 ===================================
 
 +----------------+------------------------------------+
-|Project site    | http://github.com/cr0hn/idsfree     |
+|Project site    | http://github.com/bbva/idsfree     |
 +----------------+------------------------------------+
-|Author          | cr0hn  |
+|Author          | Daniel Garcia (cr0hn)              |
 +----------------+------------------------------------+
-|Documentation   | http://idsfree.readthedocs.io |
+|Documentation   | http://idsfree.readthedocs.io      |
 +----------------+------------------------------------+
 |Last Version    | 1.0.0                              |
 +----------------+------------------------------------+

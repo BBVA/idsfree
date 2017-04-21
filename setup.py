@@ -2,7 +2,7 @@
 #
 # Project name: idsFree
 # Author: cr0hn
-# Project Site: https://github.com/cr0hn/idsfree
+# Project Site: https://github.com/bbva/idsfree
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the
@@ -89,7 +89,7 @@ setup(
     name='idsfree',
     version=version,
     install_requires=required,
-    url='https://github.com/cr0hn/idsfree',
+    url='https://github.com/bbva/idsfree',
     license='BSD',
     author='cr0hn',
     author_email='cr0hn@cr0hn.com',

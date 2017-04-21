@@ -1,5 +1,5 @@
 Install idsFree
-==============
+===============
 
 Install idsFree is very simple, depending of the
 release you want, you can install:
@@ -19,4 +19,4 @@ Development version
 
 .. code-block:: bash
 
-    > python3.5 -m pip install https://github.com/cr0hn/idsfree/archive/develop.zip
+    > python3.5 -m pip install https://github.com/bbva/idsfree/archive/develop.zip

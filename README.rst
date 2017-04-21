@@ -3,7 +3,7 @@ idsFree
 
 *idsFree: automatic hacking for docketized applications, escaping to the Intrusion Detection Systems*
 
-.. image::  https://github.com/cr0hn/idsfree/raw/master/doc/source/_static/idsfree-logo-256.png
+.. image::  https://github.com/bbva/idsfree/raw/master/doc/source/_static/idsfree-logo-256.png
     :height: 64px
     :width: 64px
     :alt: idsFree logo
@@ -12,7 +12,7 @@ idsFree
     :target: https://travis-ci.org/cr0hn/idsfree
 
 .. image:: https://img.shields.io/pypi/l/Django.svg
-    :target: https://github.com/cr0hn/idsfree/blob/master/LICENSE
+    :target: https://github.com/bbva/idsfree/blob/master/LICENSE
 
 .. image:: https://img.shields.io/pypi/status/Django.svg
     :target: https://pypi.python.org/pypi/idsfree/1.0.0
@@ -25,9 +25,9 @@ idsFree
     :alt: Documentation Status
 
 +----------------+--------------------------------------------+
-|Project site    | https://github.com/cr0hn/idsfree           |
+|Project site    | https://github.com/bbva/idsfree            |
 +----------------+--------------------------------------------+
-|Issues          | https://github.com/cr0hn/idsfree/issues/   |
+|Issues          | https://github.com/bbva/idsfree/issues/    |
 +----------------+--------------------------------------------+
 |Documentation   | https://idsfree.readthedocs.io/            |
 +----------------+--------------------------------------------+
@@ -134,15 +134,15 @@ Contributors
 ------------
 
 Contributors are welcome. You can find a list ot TODO tasks in the `TODO.md
-<https://github.com/cr0hn/idsfree/blob/master/TODO.md>`_ at the project file.
+<https://github.com/bbva/idsfree/blob/master/TODO.md>`_ at the project file.
 
 All contributors will be added to the `CONTRIBUTORS.md
-<https://github.com/cr0hn/idsfree/blob/master/CONTRIBUTORS.md>`_ file.
+<https://github.com/bbva/idsfree/blob/master/CONTRIBUTORS.md>`_ file.
 
 Thanks in advance if you're planning to contribute to the project! :)
 
 License
 =======
 
-This project is distributed under `BSD license <https://github.com/cr0hn/idsfree/blob/master/LICENSE>`_
+This project is distributed under `BSD license <https://github.com/bbva/idsfree/blob/master/LICENSE>`_
 
