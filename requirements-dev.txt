@@ -1,4 +1,0 @@
-alabaster
-
-sphinx
-sphinxcontrib-asyncio
