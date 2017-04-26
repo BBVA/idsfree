@@ -1,7 +1,7 @@
 idsFree
 =======
 
-*idsFree: automatic hacking for docketized applications, escaping to the Intrusion Detection Systems*
+*IdsFree: Launch hacking tests in cloud providers securely, isolated and without raise security alerts in the provider*
 
 .. image::  https://github.com/bbva/idsfree/raw/master/doc/source/_static/idsfree-logo-256.png
     :height: 64px
@@ -41,21 +41,37 @@ idsFree
 What's idsFree?
 ===============
 
-This project try to launch hacking test without raise alerts into IDS
-mechanisms.
+**IdsFree** allow you to perform hacking testing without raise alerts at IDS mechanism.
 
-The main problem when we try to do hacking for our own websites, and when we haven't infrastructure in other place but in cloud system (AWS, Google Compute engine, Digital Ocean, etc...) is that these providers doesn't allow to run hacking tools (even the applications are we own!).
+What problem solve IdsFree?
+===========================
 
-To avoid this issue, we have created **idsFree**.
+There're many organizations and companies (an users too) that only have Cloud provides as an infrastructure for their own products, developments and any other thing that they will need.
+
+But, **what happen with active part of security**? Of course we're talking about ethical hacking and penetration testing. The major part of cloud providers doesn't allow to perform hacking tasks in their platform (or very limited), **even if you only attack your own services**!
+
+**IdsFree** allow you to do:
+
+1. **Hacking** tasks **without raise alert into Cloud Provider**.
+2. Create a **secure and isolated network** to perform your hacking tests.
+3. **Automate** your **hacking tasks** following the concept of previous point.
 
 How it works?
 =============
 
-IdsFree get your application image (as a Docker image) and creates a Docker container using it. Then it connect the container to another docker container with hacking tools using a cyphered SDN and then: creating a **private**, **isolated** and **cyphered network** for your tests, in a **specified machine with SSH access**.
+To perform the above tasks, **IdsFree** follow these steps:
 
-Then idsFree launch your hacking tests over your application, get the results and export it in a readable format (currently in JSON and XML JUnit format).
+1. **Create a private and cyphered network** in your cloud provider (in a virtual machine), through SSH connections and using *Docker Swarm*.
+2. Get **your application** (and their environment requisites) **as a Docker image** and attach to the just created network.
+3. **Attach** to the network **hacking tools** and Launch selected attacks through the cyphered and isolated network.
+4. Take the **results** of tools and export them in a usable format: **JSON** or **JUnit** format (ver useful for integrating with **Jenkins**).
+5. **Clean up** the container and network from the virtual machine.
 
-When test was ended, idsFree remove the containers, the private networks and clean the environment.
+The next image illustrates how the environment are deployed in the cloud provider:
+
+.. image::  https://github.com/bbva/idsfree/raw/master/doc/source/_static/diagrams/hacking-with-idsfree.png
+    :width: 400px
+    :alt: IdsFree running
 
 Quick start
 ===========
