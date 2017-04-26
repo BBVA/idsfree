@@ -61,11 +61,12 @@ How it works?
 
 To perform the above tasks, **IdsFree** follow these steps:
 
-1. **Create a private and cyphered network** in your cloud provider (in a virtual machine), through SSH connections and using *Docker Swarm*.
-2. Get **your application** (and their environment requisites) **as a Docker image** and attach to the just created network.
-3. **Attach** to the network **hacking tools** and Launch selected attacks through the cyphered and isolated network.
-4. Take the **results** of tools and export them in a usable format: **JSON** or **JUnit** format (ver useful for integrating with **Jenkins**).
-5. **Clean up** the container and network from the virtual machine.
+1. IdsFree uses a SSH connection a virtual machine in your cloud provider.
+2. Once connected, idsFree will **create a private and cyphered network** on this virtual machine using *Docker Swarm*.
+3. Get **your application** (and their environment requisites) **as a Docker image** and run it attaching it to the previously created network.
+4. **Attach** to the network **hacking tools** as docker containers and launch selected attacks through the cyphered and isolated network.
+5. Take the **results** of tools and export them in a usable format: **JSON** or **JUnit** format (very useful for integrating with **Jenkins**).
+6. **Clean up** the container and network from the virtual machine.
 
 The next image illustrates how the environment are deployed in the cloud provider:
 
@@ -112,8 +113,7 @@ to run. An examples of usage are:
 Launching the attacks
 ---------------------
 
-Currently, idsFree can launch two type of attacks: net | web, and try to
-choice the best tools to perform the attacks.
+Currently, idsFree can launch two type of attacks: net | web, and try to choice the best tools to perform the attacks.
 
 Also, idsFree can report in two formats: **JSON** and **JUnit**.
 
@@ -149,11 +149,9 @@ Go to documentation site: https://idsfree.readthedocs.io/
 Contributors
 ------------
 
-Contributors are welcome. You can find a list ot TODO tasks in the `TODO.md
-<https://github.com/bbva/idsfree/blob/master/TODO.md>`_ at the project file.
+Contributors are welcome. You can find a list ot TODO tasks in the `TODO.md <https://github.com/bbva/idsfree/blob/master/TODO.md>`_ at the project file.
 
-All contributors will be added to the `CONTRIBUTORS.md
-<https://github.com/bbva/idsfree/blob/master/CONTRIBUTORS.md>`_ file.
+All contributors will be added to the `CONTRIBUTORS.md <https://github.com/bbva/idsfree/blob/master/CONTRIBUTORS.md>`_ file.
 
 Thanks in advance if you're planning to contribute to the project! :)
 
