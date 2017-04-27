@@ -8,7 +8,7 @@ idsFree
     :width: 64px
     :alt: idsFree logo
 
-.. image:: https://travis-ci.org/bbva/idsfree.svg?branch=master
+.. image:: https://travis-ci.org/BBVA/idsfree.svg?branch=master
     :target: https://travis-ci.org/bbva/idsfree
 
 .. image:: https://img.shields.io/pypi/l/Django.svg
@@ -20,7 +20,7 @@ idsFree
 .. image:: https://codecov.io/gh/bbva/idsfree/branch/master/graph/badge.svg
     :target: https://codecov.io/gh/bbva/idsfree
 
-.. image:: https://readthedocs.org/projects/bbva/badge/?version=latest
+.. image:: https://readthedocs.org/projects/idsfree/badge/?version=latest
     :target: http://idsfree.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
 
