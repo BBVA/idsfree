@@ -26,12 +26,13 @@ os:
 deploy:
 
   # Deploy to PyPI
-  - provider: script
+  - provider: pypi
     user: $PYPI_USER
     password: $PYPI_PASSWD
     distributions: "sdist"
+    skip_cleanup: true
     on:
-      branch: master
+      branch: tag
 
   #- provider: releases
   #  api_key: $GITHUB_AUTH
