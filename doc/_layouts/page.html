@@ -1,0 +1,38 @@
+---
+layout: default
+is_doc: "yes"
+---
+
+<!-- ******Header****** -->
+<header id="header" class="header">
+  <div class="container">
+    <div class="branding">
+      <h1 class="logo">
+        <a href="/">
+          <span aria-hidden="true" class="icon_documents_alt icon"></span>
+          <span class="text-highlight">{{site.project_name}}</span><span class="text-bold">Docs</span>
+        </a>
+      </h1>
+    </div><!--//branding-->
+    <ol class="breadcrumb">
+      <li><a href="/">Home</a></li>
+      <li class="active">{{ page.title }}</li>
+    </ol>
+  </div><!--//container-->
+</header><!--//header-->
+
+<div class="doc-wrapper">
+  <div class="container">
+    <div id="doc-header" class="doc-header text-center">
+      <h1 class="doc-title"><i class="icon {{ page.title_icon }}"></i> {{ page.title }}</h1>
+      {% if page.updated %}
+      <div class="meta"><i class="fa fa-clock-o"></i> Last updated: {{ page.updated }}</div>
+      {% endif %}
+    </div><!--//doc-header-->
+
+    <div class="doc-body">
+      {{ content | toc_generate }}
+    </div>
+  </div>
+</div>
+

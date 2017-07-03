@@ -101,7 +101,8 @@ setup(
     entry_points={'console_scripts': [
         'idsfree = idsfree.actions.cli:cli',
     ]},
-    description='Brief description',
+    description='IdsFree: Launch hacking tests in cloud providers securely, '
+                'isolated and without raise security alerts in the provider',
     long_description=long_description,
     classifiers=[
         'Environment :: Console',
