@@ -1,14 +1,15 @@
 
-from idsfree import SharedConfig, String
+from idsfree import SharedWithSSHRemove, String
 
 
-class IdsFreeRunAttacksModel(SharedConfig):
+class IdsFreeRunAttacksModel(SharedWithSSHRemove):
     output_results_path = String(default="")
     output_results_format = String(default="json")
     attacks_type = String(default="net")
     port_to_check = String(default="80")
     service_name = String(default="")
-    docker_image = String()
+    target_docker_image = String()
+    swarm_compose = String()
 
     ATTACKS_TYPES = ('net', "web")
     RESULTS_FORMATS = ('json', 'junit')

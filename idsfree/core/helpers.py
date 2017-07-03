@@ -2,12 +2,52 @@
 This file contains utils and reusable functions
 """
 
+import os
 import logging
+import configparser
 
+from os.path import exists
 from collections import namedtuple
 from contextlib import contextmanager
 
+
 log = logging.getLogger('idsfree')
+
+
+def load_idsfree_config(config_path: str = None) -> dict:
+    """
+    This function try load config from 'config_path'.
+
+    If no info provided try to load from a file called .idsfree from:
+    1 - Current path
+    2 - User home and load
+
+    """
+
+    try:
+        config = configparser.ConfigParser()
+
+        if config_path and exists(config_path):
+            config_path = os.path.abspath(config_path)
+
+            config.read(config_path)
+
+        curr_path = os.path.join(os.getcwd(), '.idsfreerc')  # Current path
+        if not config.sections() and exists(curr_path):
+            config.read(curr_path)
+
+        user_home = os.path.expanduser('~/.idsfreerc')  # User home
+        if not config.sections() and exists(user_home):
+            config.read(user_home)
+
+        return dict(config.items('DEFAULT'))
+
+    except configparser.NoSectionError as e:
+        log.error('Error parsing configuration file: {}'.format(
+            e
+        ))
+
+        return {}
 
 
 def dict_to_obj(data):
@@ -57,4 +97,5 @@ def run_in_console(debug=False):
         log.debug("Shutdown...")
 
 
-__all__ = ("dict_to_obj", "get_log_level", "run_in_console")
+__all__ = ("dict_to_obj", "get_log_level", "run_in_console",
+           "load_idsfree_config")

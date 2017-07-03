@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+    <title>Responsive website template for documentations</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="/assets/plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="/assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="/assets/plugins/lightbox/dist/ekko-lightbox.min.css">
+    <link rel="stylesheet" href="/assets/plugins/elegant_font/css/style.css">
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="/assets/css/styles.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+  <body class=" body-None">
+    <div class="page-wrapper">
+
+        <!-- ******Header****** -->
+        <!-- ******Header****** -->
+<header id="header" class="header">
+  <div class="container">
+    <div class="branding">
+      <h1 class="logo">
+        <a href="/">
+          <span aria-hidden="true" class="icon_documents_alt icon"></span>
+          <span class="text-highlight">idsFree</span><span class="text-bold">Docs</span>
+        </a>
+      </h1>
+    </div><!--//branding-->
+    <ol class="breadcrumb">
+      <li><a href="/">Home</a></li>
+      <li class="active">F.A.Q</li>
+    </ol>
+  </div><!--//container-->
+</header><!--//header-->
+
+<div class="doc-wrapper">
+  <div class="container">
+    <div id="doc-header" class="doc-header text-center">
+      <h1 class="doc-title"><i class="icon icon_lifesaver"></i> F.A.Q</h1>
+      
+    </div><!--//doc-header-->
+
+    <div class="doc-body">
+      <div class="doc-content"><div class="content-inner"><h1 id="tocAnchor-1-1">General</h1>
+
+<h3 class="question"><i class="fa fa-question-circle"></i> Is idsFree suitable for Malware analysis?</h3>
+
+<p><strong>NO</strong>. idsFree runs under Docker umbrella and not uses visualization neither bare-metal approach. So, it makes not sense to use it for malware analysis.</p>
+
+<h3 class="question"><i class="fa fa-question-circle"></i> My applications need to packaged as any specific way?</h3>
+
+<p><strong>Yes</strong>. <em>idsFree</em> only understands about docker images. You need to package your application into a Docker image and tell to <em>idsFree</em> what’s ports are you exposing in your applications (or what’s port do you want to test).</p>
+
+<p>Then, you need to upload your Docker image to an accessible Docker Registry. <em>idsFree</em> will download this image.</p>
+
+<h3 class="question"><i class="fa fa-question-circle"></i> My application depends of other services, how can I tell to idsFree that?</h3>
+
+<p>We know that is very strange that an application hasn’t any dependency (a database, for example). For that, you could specify a Docker Swarm compose with all of your application dependencies.</p>
+
+<p>For more information, see <a href="/howitworks/">How it works</a> section.</p>
+
+<h1 id="tocAnchor-1-2">AWS Problems</h1>
+
+<h3 class="question"><i class="fa fa-question-circle"></i> My cluster machines can't reach each others</h3>
+
+<p>AWS has the concept of VPC. Each VPC defines the allowed port to be opened. By default, the needed port por idsFree (it’s really that Swarm uses) need to be opened in the firewall.</p>
+
+<p>The port you should open are:</p>
+
+<p>
+  <strong>TCP</strong>
+</p>
+
+<ul>
+  <li>2377</li>
+  <li>7946</li>
+</ul>
+
+<p>
+  <strong>UDP</strong>
+</p>
+
+<ul>
+  <li>7946</li>
+  <li>4789</li>
+</ul>
+
+<p>You also need to allow <em>ip protocol 50</em>.</p>
+
+<p>More information at <a href="https://docs.docker.com/engine/swarm/swarm-tutorial/#open-protocols-and-ports-between-the-hosts">Swam documentation page</a>.</p>
+
+<h1 id="tocAnchor-1-3">Linux errors</h1>
+
+<h3 class="question"><i class="fa fa-question-circle"></i> Why Linux raises 'sudo' command not found?</h3>
+
+<p><em>idsFree</em> uses <code class="highlighter-rouge">sudo</code> command to launch remote commands. Be sure that sudo command is installed in remote system and your user has permissions to execute <code class="highlighter-rouge">docker</code> command using sudo.</p>
+
+<h3 class="question"><i class="fa fa-question-circle"></i> When idsFree launches can't find attacked app</h3>
+
+<p><em>idsFree</em> uses very new Docker features that need very new Linux kernel. Be sure you have had updated your system to have newest userlan tools and kernel.</p>
+
+<p>Usually it should be enough to run <code class="highlighter-rouge">sudo apt dist-upgrade</code> command.</p>
+
+</div></div><div class="doc-sidebar hidden-xs"><nav id="doc-nav"><ul id="doc-menu" class="nav doc-menu" data-spy="affix"><li><a class="scrollto" href="#tocAnchor-1-1">General</a></li><li><a class="scrollto" href="#tocAnchor-1-2">AWS Problems</a></li><li><a class="scrollto" href="#tocAnchor-1-3">Linux errors</a></li></ul></nav></div>
+    </div>
+  </div>
+</div>
+
+
+
+    </div><!--//page-wrapper-->
+
+    
+    <footer class="footer text-center">
+        <div class="container">
+            <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
+            <small class="copyright">Theme designed by <a href="http://themes.3rdwavemedia.com/" target="_blank">Xiaoying Riley</a></small>
+
+        </div><!--//container-->
+    </footer><!--//footer-->
+
+
+    <!-- Main Javascript -->
+    <script type="text/javascript" src="/assets/plugins/jquery-1.12.3.min.js"></script>
+    <script type="text/javascript" src="/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/assets/plugins/prism/prism.js"></script>
+    <script type="text/javascript" src="/assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
+    <script type="text/javascript" src="/assets/plugins/lightbox/dist/ekko-lightbox.min.js"></script>
+    <script type="text/javascript" src="/assets/plugins/jquery-match-height/jquery.matchHeight-min.js"></script>
+    <script type="text/javascript" src="/assets/js/main.js"></script>
+
+  </body>
+
+</html>

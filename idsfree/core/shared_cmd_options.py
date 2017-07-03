@@ -21,8 +21,11 @@ global_options_list = (
     # General
     click.option('-v', 'verbosity', count=True, type=int, default=1,
                  help='Verbose output'),
+    click.option('-y', 'skip_check_requisites', is_flag=True, default=False,
+                 help='skip remote checks requisites to run idsFRee'),
     click.option('-d', 'debug', is_flag=True, default=False,
                  help='enable debug'),
+    click.option('-c', 'config_file', help='configuration file path'),
     click.option('--quiet', '-q', 'verbosity', flag_value=0,
                  help='Minimal output'),
     click.option('--remote-host', "-H", 'remote_host',
@@ -35,7 +38,7 @@ global_options_list = (
                  help='Remote password for SSH service'),
     click.option('-A', 'ask_remote_password', is_flag=True, default=False,
                  help='Ask for remote SSH password'),
-    click.option('--remote-cert-path', "-C", 'remote_cert_path',
+    click.option('--cert-path', "-i", 'cert_path',
                  help='Certificate file for remote SSH service'),
     click.version_option(version=version)
 )

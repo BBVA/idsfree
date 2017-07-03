@@ -8,7 +8,7 @@ def test_run_default_idsfree_runs_ok():
     #
     # FILL THIS WITH A TEST
     #
-    # assert run_prepare_idsfree() is None
+    # assert run_prepare_slave_idsfree() is None
     pass
 
 

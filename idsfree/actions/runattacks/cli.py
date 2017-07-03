@@ -12,7 +12,7 @@ log = logging.getLogger('idsfree')
 
 @click.command(help="Run attacks using a remote host")
 @click.pass_context
-@click.argument('docker_image')
+@click.argument('target_docker_image')
 @click.option('-p',
               '--check-ports',
               'port_to_check',
@@ -35,10 +35,15 @@ log = logging.getLogger('idsfree')
               'output_results_path',
               help="output results file path",
               default="idsfree-results.json")
-@click.option('-s',
+@click.option('-n',
               '--service-name',
               'service_name',
-              help="service name to test. I.e: redis")
+              help="extra information about the service name to test. "
+                   "I.e: redis")
+@click.option('-s',
+              '--swarm-compose',
+              'swarm_compose',
+              help="Swarm compose file for complex environments")
 def run_attacks(ctx, **kwargs):
     if ctx.obj.get("ask_remote_password") is True:
         ctx.obj["remote_password"] = getpass.getpass("Remote SSH password: ",

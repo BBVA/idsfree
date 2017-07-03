@@ -1,76 +1,26 @@
-
+import os
 import asyncio
 import logging
 import tempfile
 
-from typing import Tuple, Dict, Union
+from typing import Dict, Union
 
 from .model import *
+from .attacks import *
 from .helpers import *
 from .results_parsers import *
-from ...core.exceptions import IdsFreeInsecureData
-from ..helpers import check_remote_requisites, get_remote_ssh_connection
+from ...core.exceptions import IdsFreeInsecureData, IdsFreeError
+from ..helpers import check_remote_requisites, get_remote_ssh_connection, \
+    wait_for_service, SwamNetwork, generate_random_name, ConfigLaunchService, \
+    ConfigLaunchSwarmCompose, run_service_or_stack, ConfigLaunchCustom, \
+    remove_service_or_stack
 
 log = logging.getLogger("idsfree")
 
-
-def build_attack_command(attack_type: str,
-                         results_file_name: str,
-                         network_name: str,
-                         attacker_app: str,
-                         ports_to_attack: str,
-                         attacked_app: str,
-                         service_name: str = "") -> Dict[str, Tuple[str, str]]:
-    """
-    This functions build and returns the command for attack and the result 
-    file path
-    
-    :return: tuple as format: (command string, results file path) 
-    :rtype: tuple(str, str)
-    """
-    port_to_scan = expand_ports(ports_to_attack)
-    NMAP_SCRIPTS_WEB = "--script \"http* and not *brute* and not *enum* and " \
-                       "not " \
-                       "external and not intrusive and not discovery and " \
-                       "not malware\""
-
-    if service_name:
-        NMAP_SCRIPTS_NET = "--script \"default or *{service}*\"".format(
-            service=service_name.lower()
-        )
-    else:
-        NMAP_SCRIPTS_NET = "-sC"
-
-    BASE_NMAP_COMMAND = \
-        "docker run --rm --network={netname} --name {attacker_app}" \
-        " -v /tmp:/tmp k0st/nmap -v -p {scan_ports} -oX /tmp/" \
-        "{results_file}.xml {attacked_app_addr}". \
-            format(results_file=results_file_name,
-                   scan_ports=",".join(port_to_scan),
-                   netname=network_name,
-                   attacker_app=attacker_app,
-                   attacked_app_addr=attacked_app)
-
-    commands = {}
-
-    if attack_type == "net":
-        command_file_results = "/tmp/{}.xml".format(results_file_name)
-        command = "{} {}".format(BASE_NMAP_COMMAND,
-                                 NMAP_SCRIPTS_NET)
-
-        commands["nmap"] = (command, command_file_results)
-    elif attack_type == "web":
-        command_file_results = "/tmp/{}.xml".format(results_file_name)
-        command = "{} {}".format(BASE_NMAP_COMMAND,
-                                 NMAP_SCRIPTS_WEB)
-
-        commands["nmap"] = (command, command_file_results)
-
-    return commands
+BASE_REMOTE_SHARED_PATH = "/swarm/volumes/"
 
 
-async def launch_attacks(config: IdsFreeRunAttacksModel,
-                         console_queue: asyncio.Queue = None) \
+async def coro_run_runallattacks_idsfree(config: IdsFreeRunAttacksModel) \
         -> Union[Dict[str,
                       str],
                  IdsFreeInsecureData]:
@@ -82,86 +32,184 @@ async def launch_attacks(config: IdsFreeRunAttacksModel,
         raise IdsFreeInsecureData('Service name: "{}" contains not allowed '
                                   'character values'.
                                   format(config.service_name))
-    if check_sanitized_input_for_command(config.docker_image) is False:
+    if check_sanitized_input_for_command(config.target_docker_image) is False:
         raise IdsFreeInsecureData('Docker image: "{}" contains not allowed '
                                   'character values'.
-                                  format(config.docker_image))
+                                  format(config.target_docker_image))
 
     async with get_remote_ssh_connection(config) as connection:
 
-        async with SwamNetwork(config, connection) as network_name:
+        stack_prefix = "SCAN_{}".format(generate_random_name(5, 5))
+
+        async with SwamNetwork(connection,
+                               prefix=stack_prefix) as network_name:
 
             # Built temporal result name
-            results_file_name = generate_random_name()
-            attacked_app = "attacked_app_{}".format(generate_random_name(
-                4, 10))
-            attacker_app = "attacker_app_{}".format(generate_random_name(
-                4, 10))
+            _target_app = generate_random_name(5, 5)
 
             # Launch app to attack
-            log.warning("Launching attacked app with name: {}".format(
-                attacked_app))
-            attacked_app_raw = await connection.run(
-                "docker run --rm -d --network={netname} --name {attacked_app} "
-                "{docker_image}".format(
-                    netname=network_name,
-                    attacked_app=attacked_app,
-                    docker_image=config.docker_image
-                ))
+            log.debug("Launching attacked app with name: {}".format(
+                _target_app))
+            log.error("Launching application to analyze")
 
-            # Remove the en '\n'
-            attacked_app_id = attacked_app_raw.stdout[:-1]
+            if config.swarm_compose:
+                command_or_compose = ConfigLaunchSwarmCompose(
+                    config.swarm_compose,
+                    network_name,
+                    main_service=config.target_docker_image
+                )
 
+            else:
+                command_or_compose = ConfigLaunchService(
+                    _target_app,
+                    config.target_docker_image)
+
+            target_service_id = await run_service_or_stack(
+                stack_prefix,
+                connection,
+                network_name,
+                command_or_compose)
+
+            # extract ports to test
+            ports_to_scan = expand_ports(config.port_to_check)
+
+            # Wait until all ports of service are up
+            log.error("Waiting for the application is ready ... ")
+            for port in ports_to_scan:
+                await wait_for_service(connection,
+                                       network_name,
+                                       target_service_id,
+                                       port)
+
+            # scans_id = set()
+            scan_results = {}
             try:
                 # Launch attacks
-                log.warning("Launching attacked app with name: {}".format(
-                    attacker_app))
-
-                scan_results = {}
+                log.debug("Launching target app with name: {}".format(
+                    target_service_id))
+                log.error("Launching hacking tests... (this could take some "
+                          "time)")
 
                 for tool_name, params in build_attack_command(
                         config.attacks_type,
-                        results_file_name,
                         network_name,
-                        attacker_app,
-                        config.port_to_check,
-                        attacked_app,
+                        ports_to_scan,
+                        target_service_id,
                         config.service_name).items():
 
                     command, results_path = params
 
-                    log.info("Launching tool: '{}'. Command: {}".format(
+                    log.error("Launching tool: '{}'.".format(tool_name))
+                    log.error("Scan info: '{}'. Command: '{}'".format(
                         tool_name,
                         command
                     ))
 
-                    async with await connection.create_process(command) as rproc:
+                    #
+                    # Launch attack
+                    #
+                    _custom_service_config = ConfigLaunchCustom(command)
 
-                        # Wait until attacker container ends
-                        while True:
-                            scan_line = await rproc.stdout.readline()
+                    scan_tool_name = await run_service_or_stack(
+                        stack_prefix,
+                        connection,
+                        network_name,
+                        _custom_service_config)
 
-                            if scan_line == "":
-                                break
+                    # Wait until execution ends
+                    _check_retry_counter = 0
+                    while True:
+                        try:
+                            log.debug("Checking remote service status: '{}' "
+                                      .format(scan_tool_name))
+                            _cr = connection.run(
+                                'sudo docker service ps {app} | grep -i {app}'.
+                                    format(app=scan_tool_name)
+                            )
 
-                            if console_queue:
-                                await console_queue.put(scan_line)
+                            c = await asyncio.wait_for(_cr, timeout=5)
 
-                            log.debug(scan_line)
+                        except TimeoutError:
+
+                            log.info("Timeout reached while checking service "
+                                     "'{}' status".format(scan_tool_name))
+
+                            _check_retry_counter += 1
+
+                            if _check_retry_counter >= 4:
+                                raise IdsFreeError("Timeout when try to check "
+                                                   "the remote service status")
+
+                            await asyncio.sleep(1)
+
+                        # Check if container has not replicas -> execution was
+                        # finished
+                        if "Shutdown" in c.stdout:
+                            break
+
+                        log.debug("Service '{}' is still running. Waiting... "
+                                  .format(scan_tool_name))
+
+                        await asyncio.sleep(0.5)
+
+                    complete_remote_results_file_path = os.path.join(
+                        BASE_REMOTE_SHARED_PATH,
+                        results_path)
 
                     # Download results
+                    log.info("trying to download result file from: {}".format(
+                        complete_remote_results_file_path
+                    ))
                     with tempfile.NamedTemporaryFile() as local_results_file:
                         async with connection.start_sftp_client() as sftp:
-                            await sftp.get(results_path,
-                                           localpath=local_results_file.name)
 
-                        local_results_content = open(
-                            local_results_file.name).read()
+                            #
+                            # Try to download generated report.
+                            #
+                            # The report will be stored in shared location,
+                            # managed by a GlusterFS. Sometimes, Glustedfs
+                            # could be not synchronised and remote file
+                            # could be not found. So we'll wait until the
+                            # file are available. These checks will be done
+                            # until 5 times. If in these checks the file not
+                            #  found, try to check if glusterFs is nos sync
+                            #
+                            for i in range(6):
+                                try:
+                                    await sftp.get(
+                                        complete_remote_results_file_path,
+                                        localpath=local_results_file.name)
 
-                    # Remove temporal result file
-                    await connection.run("rm -rf {}".format(results_path))
+                                    break
+                                except Exception as e:
+                                    await asyncio.sleep(1)
 
-                    scan_results[tool_name] = local_results_content
+                                    if i == 5:
+                                        res = await connection.run(
+                                            "sudo mount | grep -i gluster"
+                                        )
+
+                                        if res.stdout != "":
+                                            raise IdsFreeError(
+                                                "File not found in shared "
+                                                "gluster "
+                                                "volume. Maybe you should "
+                                                "re-mount your "
+                                                "partition. Try type: '> "
+                                                "mount.glusterfs "
+                                                "localhost:/swarm-vols "
+                                                "/swarm/volumes'")
+
+                                    continue
+
+                            local_results_content = open(
+                                local_results_file.name).read()
+
+                            # Remove remote temporal result file
+                            await connection.run("sudo rm -rf {}".format(
+                                complete_remote_results_file_path))
+
+                            scan_results[tool_name] = local_results_content
 
                 #
                 # Return the results of the all commands
@@ -169,12 +217,9 @@ async def launch_attacks(config: IdsFreeRunAttacksModel,
                 return scan_results
 
             finally:
-                # Destroy attacked app container
-                log.warning("Destroying attacked app with name: {}".format(
-                    attacked_app))
-                await connection.run("docker rm -f {attacked_app_id}".format(
-                    attacked_app_id=attacked_app_id
-                ))
+                await remove_service_or_stack(connection,
+                                              stack_prefix,
+                                              auto_remove_network=False)
 
 
 def run_runattasks_idsfree(config: IdsFreeRunAttacksModel) \
@@ -194,10 +239,11 @@ def run_runattasks_idsfree(config: IdsFreeRunAttacksModel) \
     loop = asyncio.get_event_loop()
 
     # Check remote Docker version
-    loop.run_until_complete(check_remote_requisites(config))
+    if not config.skip_check_requisites:
+        loop.run_until_complete(check_remote_requisites(config))
 
     # Launch attacks
-    results = loop.run_until_complete(launch_attacks(config))
+    results = loop.run_until_complete(coro_run_runallattacks_idsfree(config))
 
     # Parse results
 
@@ -206,9 +252,9 @@ def run_runattasks_idsfree(config: IdsFreeRunAttacksModel) \
         config.output_results_path
     ))
 
-    return parse_results(results,
-                         config.attacks_type,
-                         config.output_results_format)
+    return runallattacks_parse_results(results,
+                                       config.attacks_type,
+                                       config.output_results_format)
 
 
-__all__ = ("run_runattasks_idsfree",)
+__all__ = ("run_runattasks_idsfree", "coro_run_runallattacks_idsfree")

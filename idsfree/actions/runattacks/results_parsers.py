@@ -15,8 +15,8 @@ from .model import SecurityResult
 # --------------------------------------------------------------------------
 # Parser functions of results depending of tool executed
 # --------------------------------------------------------------------------
-def _nmap_results_parser(results: str) -> List[SecurityResult]:
-    nmap_report = NmapParser.parse_fromstring(results)
+def _nmap_results_parser(in_results: str) -> List[SecurityResult]:
+    nmap_report = NmapParser.parse_fromstring(in_results)
 
     PLUGINS_VULN_CATEGORY = [
         "afp-path-vuln",
@@ -260,9 +260,9 @@ FORMAT_TRANSFORMS = {
 # --------------------------------------------------------------------------
 # Entry point
 # --------------------------------------------------------------------------
-def parse_results(results: Dict[str, str],
-                  attack_type: str,
-                  results_format: str) -> str:
+def runallattacks_parse_results(results: Dict[str, str],
+                                attack_type: str,
+                                results_format: str) -> str:
 
     parsed_results = []
 
@@ -274,4 +274,4 @@ def parse_results(results: Dict[str, str],
     return FORMAT_TRANSFORMS[results_format](parsed_results)
 
 
-__all__ = ("parse_results",)
+__all__ = ("runallattacks_parse_results",)
