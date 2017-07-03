@@ -1,5 +1,7 @@
 click
+aiohttp
 colorlog
 booby-ng
 asyncssh
+pyyaml
 python-libnmap
