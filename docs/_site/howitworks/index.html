@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+    <title>Responsive website template for documentations</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="/assets/plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="/assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="/assets/plugins/lightbox/dist/ekko-lightbox.min.css">
+    <link rel="stylesheet" href="/assets/plugins/elegant_font/css/style.css">
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="/assets/css/styles.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+  <body class=" body-blue">
+    <div class="page-wrapper">
+
+        <!-- ******Header****** -->
+        <!-- ******Header****** -->
+<header id="header" class="header">
+  <div class="container">
+    <div class="branding">
+      <h1 class="logo">
+        <a href="/">
+          <span aria-hidden="true" class="icon_documents_alt icon"></span>
+          <span class="text-highlight">idsFree</span><span class="text-bold">Docs</span>
+        </a>
+      </h1>
+    </div><!--//branding-->
+    <ol class="breadcrumb">
+      <li><a href="/">Home</a></li>
+      <li class="active">How idsFree works?</li>
+    </ol>
+  </div><!--//container-->
+</header><!--//header-->
+
+<div class="doc-wrapper">
+  <div class="container">
+    <div id="doc-header" class="doc-header text-center">
+      <h1 class="doc-title"><i class="icon fa fa-cogs"></i> How idsFree works?</h1>
+      
+    </div><!--//doc-header-->
+
+    <div class="doc-body">
+      <h1 id="forewords">Forewords</h1>
+
+<p><em>idsFree</em> was designed with to ideas in mind:</p>
+
+<ul>
+  <li>Automatize some hacking-related task.</li>
+  <li>Provide a safe &amp; useful tool for building isolated environments for pentesters that need to perform hacking tasks.</li>
+  <li>Be able to perform these hacking tasks in cloud provided securely and without affect other cloud clients.</li>
+</ul>
+
+<p>The above tasks could be done without raise any alerts into could provider.</p>
+
+<h1 id="building-the-environment">Building the environment</h1>
+
+<p>Independently of the purpose that you was run <em>idsFree</em> it will follow these common steps:</p>
+
+<ol>
+  <li>IdsFree uses a SSH connection to a virtual machine in your cloud provider.</li>
+  <li>Once connected, idsFree will <strong>create a private and cyphered network</strong> on this virtual machine using <em>Docker Swarm</em>.</li>
+  <li>Then get <strong>your application</strong> (and their environment requisites), <strong>packaged as a Docker image</strong>, and attach it to the just created network.</li>
+  <li>Then <strong>Attach</strong> to the network the <strong>hacking tools</strong>, as a docker containers.</li>
+</ol>
+
+<h2 id="automatized-hacking">Automatized hacking</h2>
+
+<p>Starting at point 4 of previous common steps, to perform automatized tasks, <em>idsFree</em> does:</p>
+
+<ol>
+  <li>Launch selected attacks through the cyphered and isolated network</li>
+  <li>Take the <strong>results</strong> of tools and export them in a usable format: <strong>JSON</strong> or <strong>JUnit</strong> format (very useful for integrating with <strong>Jenkins</strong>).</li>
+  <li><strong>Clean up</strong> the container and network from the virtual machine.</li>
+</ol>
+
+<h2 id="build-a-lab-for-pentesters">Build a lab for pentesters</h2>
+
+<p>Starting at point 4 of previous common steps, to perform automatized tasks, <em>idsFree</em> does:</p>
+
+<ol>
+  <li>Attach a Kali Linux, as a Docker container.</li>
+  <li>Open an SSH port from outside throught this container.</li>
+  <li>Provide to the auditor the SSH connection parameters.</li>
+</ol>
+
+<p>At this point, when <em>idsFree</em> finishes the process, the pentester (auditor) will be able to connect from their machine to the just created environment, pointing to the <em>Kali Linux</em> machine.</p>
+
+<p>The next image illustrates the resulting environment visually:</p>
+
+<p><img src="/assets/images/hacking-with-idsfree.png" alt="idsFree" /></p>
+
+<h2 id="sharing-information">Sharing information</h2>
+
+<p><em>idsFree</em> uses GlusterFS to create a cluster of data.</p>
+
+<p>Useful links:</p>
+
+<ul>
+  <li><a href="http://embaby.com/blog/using-glusterfs-docker-swarm-cluster/">Using GlusterFS with Docker swarm cluster</a></li>
+  <li><a href="https://www.linux.com/learn/how-use-docker-machine-create-swarm-cluster">How to Use Docker Machine to Create a Swarm Cluster</a></li>
+  <li><a href="https://blog.dahanne.net/2015/10/07/adding-an-existing-docker-host-to-docker-machine-a-few-tips/">Adding an existing docker host to docker machine : a few tips</a></li>
+  <li><a href="https://blog.hypriot.com/post/swarm-machines-or-having-fun-with-docker-machine-and-the-new-docker-swarm-orchestration/">Swarm Machines or Having fun with Docker Machine and the new Docker Swarm orchestration</a></li>
+</ul>
+
+<h1 id="application-with-service-dependencies">Application with service dependencies</h1>
+
+<p>docker compose info</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+    </div><!--//page-wrapper-->
+
+    
+    <footer class="footer text-center">
+        <div class="container">
+            <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
+            <small class="copyright">Theme designed by <a href="http://themes.3rdwavemedia.com/" target="_blank">Xiaoying Riley</a></small>
+
+        </div><!--//container-->
+    </footer><!--//footer-->
+
+
+    <!-- Main Javascript -->
+    <script type="text/javascript" src="/assets/plugins/jquery-1.12.3.min.js"></script>
+    <script type="text/javascript" src="/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/assets/plugins/prism/prism.js"></script>
+    <script type="text/javascript" src="/assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
+    <script type="text/javascript" src="/assets/plugins/lightbox/dist/ekko-lightbox.min.js"></script>
+    <script type="text/javascript" src="/assets/plugins/jquery-match-height/jquery.matchHeight-min.js"></script>
+    <script type="text/javascript" src="/assets/js/main.js"></script>
+
+  </body>
+
+</html>
