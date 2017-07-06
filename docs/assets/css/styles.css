@@ -840,6 +840,7 @@ table>thead>tr>th {
 .doc-menu {
   list-style: none;
   padding-left: 0;
+  max-width: 230px;
 }
 .doc-menu > li {
   margin-bottom: 5px;
