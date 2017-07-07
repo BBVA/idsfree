@@ -3,7 +3,7 @@ idsFree
 
 *IdsFree: Launch hacking tests in cloud providers securely, isolated and without raise security alerts in the provider*
 
-.. image::  https://github.com/bbva/idsfree/raw/master/doc/source/_static/idsfree-logo-256.png
+.. image::  https://github.com/BBVA/idsfree/raw/master/docs/assets/images/idsfree-logo.png
     :height: 64px
     :width: 64px
     :alt: idsFree logo
