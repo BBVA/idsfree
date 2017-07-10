@@ -23,7 +23,8 @@ landing: landing-page
 <div class="cards-wrapper-adjust cards-wrapper row">
 
     {% for page in site.pages %}
-    {% if page.permalink != "" and page.permalink != "/" and page.enabled != false and page.intro == true and page.path not contains "assets" %}
+    {% if page.permalink != "" and page.permalink != "/" and page.enabled != false and page.intro == true %}
+    {% unless page.path contains "assets" %}
     <div class="item item-{{ page.body_color }} col-md-4 col-sm-6 col-xs-6">
         <div class="item-inner">
             <div class="icon-holder">
@@ -36,6 +37,7 @@ landing: landing-page
             <a class="link" href="{{ page.permalink }}"><span></span></a>
         </div><!--//item-inner-->
     </div><!--//item-->
+    {% endunless %}
     {% endif %}
     {% endfor %}
 </div><!--//cards-->
@@ -47,8 +49,8 @@ landing: landing-page
 <div class="cards-wrapper row cards-wrapper-adjust">
 
     {% for page in site.pages %}
-    {{ page.path }}
     {% if page.permalink != "" and page.permalink != "/" and page.enabled != false and page.intro != true %}
+    {% unless page.path contains "assets" %}
     <div class="item item-{{ page.body_color }} col-md-4 col-sm-6 col-xs-6">
         <div class="item-inner">
             <div class="icon-holder">
@@ -61,6 +63,7 @@ landing: landing-page
             <a class="link" href="{{ page.permalink }}"><span></span></a>
         </div><!--//item-inner-->
     </div><!--//item-->
+    {% endunless %}
     {% endif %}
     {% endfor %}
 </div><!--//cards-->
