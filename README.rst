@@ -70,7 +70,7 @@ To perform the above tasks, **IdsFree** follow these steps:
 
 The next image illustrates how the environment are deployed in the cloud provider:
 
-.. image::  https://github.com/bbva/idsfree/raw/master/doc/source/_static/diagrams/hacking-with-idsfree.png
+.. image::  https://raw.githubusercontent.com/BBVA/idsfree/master/docs/assets/images/hacking-with-idsfree.png
     :width: 400px
     :alt: IdsFree running
 
