@@ -1,3 +1,16 @@
+# Copyright 2017 BBVA
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 import re
 import os
 import copy
@@ -82,7 +95,7 @@ class ConfigLaunchService:
                  target_docker_image: str,
                  publish_ports: dict = None):
         """
-        :param publish_ports: in format: {EXTERNAL_PORT: INTERNAL_PORT} 
+        :param publish_ports: in format: {EXTERNAL_PORT: INTERNAL_PORT}
         :type publish_ports: dict(str, str)
         """
         self.app_name = app_name
@@ -358,7 +371,7 @@ def _swarm_compose_parser(content: Union[str, dict],
     """
     This function parse and fix a Swarm compose file. The adjust that the
     function does is:
-    
+
     - Convert all networks in internal
     - Remove host mount points: 'bind'
     - Add a new network for each service to connect to the apps.
@@ -506,7 +519,7 @@ async def check_remote_docker_version(connection: SSHClientConnection,
                                       loop=None) -> str:
     """
     Checks remote Docker version and return it.
-    
+
     >>> check_remote_docker_version(connection)
     '1.12'
     """
@@ -523,15 +536,15 @@ async def check_remote_linux_distribution_and_kernel(
         loop=None) -> Tuple[str, str, bool]:
     """
     Checks remote Docker version and return it.
-    
-    Supported linux distributions: {kali | debian | ubuntu | centos | unknown} 
-    
+
+    Supported linux distributions: {kali | debian | ubuntu | centos | unknown}
+
     >>> check_remote_linux_distribution_and_kernel(connection)
     ('kali', '4.10.0')
-    
-    :return: tuple as format: (distribution name, kernel version) 
+
+    :return: tuple as format: (distribution name, kernel version)
     :rtype: tuple(str, str)
-    
+
     """
     distributions = ("kali", "debian", "ubuntu", "centos")
 

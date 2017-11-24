@@ -158,5 +158,5 @@ Thanks in advance if you're planning to contribute to the project! :)
 License
 =======
 
-This project is distributed under `BSD license <https://github.com/bbva/idsfree/blob/master/LICENSE>`_
+This project is distributed under `Apache 2 license <https://github.com/bbva/idsfree/blob/master/LICENSE>`_
 
