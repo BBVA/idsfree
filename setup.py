@@ -69,7 +69,7 @@ setup(
     version=version,
     install_requires=required,
     url='https://github.com/bbva/idsfree',
-    license='BSD',
+    license='Apache',
     author='cr0hn',
     author_email='cr0hn@cr0hn.com',
     packages=find_packages(exclude=["test", "doc"]),
