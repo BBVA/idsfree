@@ -158,7 +158,7 @@ Thanks in advance if you're planning to contribute to the project! :)
 License Attributions
 ====================
 
-IDSFree uses the Python library:  "`(python-libnmap) <https://pypi.python.org/pypi/python-libnmap/>`" by Ronald Bister, available under a Creative Common "Attribution" license (CC-BY) v3.
+IDSFree uses the Python library:  "`(python-libnmap) <https://pypi.python.org/pypi/python-libnmap/>`_" by Ronald Bister, available under a Creative Common "Attribution" license (CC-BY) v3.
 
 License
 =======
