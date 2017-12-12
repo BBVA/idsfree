@@ -147,13 +147,18 @@ Documentation
 Go to documentation site: https://idsfree.readthedocs.io/
 
 Contributors
-------------
+============
 
 Contributors are welcome. You can find a list ot TODO tasks in the `TODO.md <https://github.com/bbva/idsfree/blob/master/TODO.md>`_ at the project file.
 
 All contributors will be added to the `CONTRIBUTORS.md <https://github.com/bbva/idsfree/blob/master/CONTRIBUTORS.md>`_ file.
 
 Thanks in advance if you're planning to contribute to the project! :)
+
+License Attributions
+====================
+
+IDSFree uses the Python library:  "`(python-libnmap) <https://pypi.python.org/pypi/python-libnmap/>`" by Ronald Bister, available under a Creative Common "Attribution" license (CC-BY) v3.
 
 License
 =======
